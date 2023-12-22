@@ -7,6 +7,6 @@ package com.mycompany.student.clubs;
 public class StudentClubs {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        FirestoreConnection.connectToFirebase();
     }
 }
