@@ -256,9 +256,18 @@ public class Window extends javax.swing.JFrame {
             datae.put("email", email_jTextField.getText());
             ClubProvider.saveClub("Club", String.valueOf(id), datae);
             JOptionPane.showMessageDialog(null, "Club saved successfully");
+            clearForm();
         } catch(HeadlessException e) {
             System.err.println("Error: " + e.getMessage());
             JOptionPane.showMessageDialog(null, "Failed to save club");
         }
+    }
+    
+    void clearForm() {
+        chair_jTextField.setText("");
+        title_jTextField.setText("");
+        desc_jTextField.setText("");
+        count_jTextField.setText("");
+        email_jTextField.setText("");
     }
 }
