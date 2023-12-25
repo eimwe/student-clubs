@@ -64,6 +64,11 @@ public class Window extends javax.swing.JFrame {
         });
 
         del_jButton.setText("Delete");
+        del_jButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                del_jButtonActionPerformed(evt);
+            }
+        });
 
         clear_jButton.setText("Clear");
 
@@ -198,6 +203,10 @@ public class Window extends javax.swing.JFrame {
         updateEntry();
     }//GEN-LAST:event_upd_jButtonActionPerformed
 
+    private void del_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_del_jButtonActionPerformed
+        deleteEntry();
+    }//GEN-LAST:event_del_jButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -286,6 +295,17 @@ public class Window extends javax.swing.JFrame {
         } catch(HeadlessException e) {
             System.err.println("Error: " + e.getMessage());
             JOptionPane.showMessageDialog(null, "Failed to save club");
+        }
+    }
+    
+    private void deleteEntry() {
+        try {
+            ClubProvider.deleteClub("Club", "14750");
+            JOptionPane.showMessageDialog(null, "Club deleted successfully");
+            clearForm();
+        } catch(HeadlessException e) {
+            System.err.println("Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Failed to delete club");
         }
     }
     
