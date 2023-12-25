@@ -1,8 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.student.clubs;
+
+import java.awt.HeadlessException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,6 +15,7 @@ public class Window extends javax.swing.JFrame {
      * Creates new form Window
      */
     public Window() {
+        FirestoreConnection.connectToFirebase();
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -46,6 +48,11 @@ public class Window extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         save_jButton.setText("Save");
+        save_jButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                save_jButtonActionPerformed(evt);
+            }
+        });
 
         upd_jButton.setText("Update");
 
@@ -162,6 +169,10 @@ public class Window extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void save_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_save_jButtonActionPerformed
+        saveEntry();
+    }//GEN-LAST:event_save_jButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -214,4 +225,21 @@ public class Window extends javax.swing.JFrame {
     private javax.swing.JTextField title_jTextField;
     private javax.swing.JButton upd_jButton;
     // End of variables declaration//GEN-END:variables
+
+    private void saveEntry() {
+        int id = (int) (Math.random() * 100000);
+        
+        try {
+            Map<String, Object> datae = new HashMap<>();
+            datae.put("id", id_jTextField.getText());
+            datae.put("title", title_jTextField.getText());
+            datae.put("description", desc_jTextField.getText());
+            datae.put("participants", count_jTextField.getText());
+            ClubProvider.saveClub("Club", String.valueOf(id), datae);
+            JOptionPane.showMessageDialog(null, "Club saved successfully");
+        } catch(HeadlessException e) {
+            System.err.println("Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Failed to save club");
+        }
+    }
 }
