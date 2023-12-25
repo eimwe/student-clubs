@@ -325,6 +325,8 @@ public class Window extends javax.swing.JFrame {
     }
     
     private void updateEntry() {
+        String docId = id_jTextField.getText();
+        
         try {
             Map<String, Object> datae = new HashMap<>();
             datae.put("chairperson", chair_jTextField.getText());
@@ -332,27 +334,34 @@ public class Window extends javax.swing.JFrame {
             datae.put("description", desc_jTextField.getText());
             datae.put("participants", count_jTextField.getText());
             datae.put("email", email_jTextField.getText());
-            ClubProvider.updateClub("Club", "14750", datae);
+            ClubProvider.updateClub("Club", docId, datae);
             JOptionPane.showMessageDialog(null, "Club updated successfully");
             clearForm();
         } catch(HeadlessException e) {
             System.err.println("Error: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Failed to save club");
+            JOptionPane.showMessageDialog(null, "Failed to update club");
+        } finally {
+            ClubProvider.loadClubTable(clubs_jTable);
         }
     }
     
     private void deleteEntry() {
+        String docId = id_jTextField.getText();
+        
         try {
-            ClubProvider.deleteClub("Club", "14750");
+            ClubProvider.deleteClub("Club", docId);
             JOptionPane.showMessageDialog(null, "Club deleted successfully");
             clearForm();
         } catch(HeadlessException e) {
             System.err.println("Error: " + e.getMessage());
             JOptionPane.showMessageDialog(null, "Failed to delete club");
+        } finally {
+            ClubProvider.loadClubTable(clubs_jTable);
         }
     }
     
     void clearForm() {
+        id_jTextField.setText("");
         chair_jTextField.setText("");
         title_jTextField.setText("");
         desc_jTextField.setText("");
