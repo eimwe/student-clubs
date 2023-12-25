@@ -18,6 +18,7 @@ public class Window extends javax.swing.JFrame {
         FirestoreConnection.connectToFirebase();
         initComponents();
         this.setLocationRelativeTo(null);
+        ClubProvider.loadClubTable(clubs_jTable);
     }
 
     /**
@@ -278,6 +279,8 @@ public class Window extends javax.swing.JFrame {
         } catch(HeadlessException e) {
             System.err.println("Error: " + e.getMessage());
             JOptionPane.showMessageDialog(null, "Failed to save club");
+        } finally {
+            ClubProvider.loadClubTable(clubs_jTable);
         }
     }
     

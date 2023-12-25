@@ -3,11 +3,16 @@ package com.mycompany.student.clubs;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.Precondition;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -84,5 +89,33 @@ public class ClubProvider {
         }
         
         return false;
+    }
+        
+    public static void loadClubTable(JTable table) {
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("Title");
+        tableModel.addColumn("Description");
+        tableModel.addColumn("Participants");
+        tableModel.addColumn("Chairperson");
+        tableModel.addColumn("E-mail");
+        
+        try {
+            CollectionReference clubs = FirestoreConnection.db.collection("Club");
+            ApiFuture<QuerySnapshot> querySnap = clubs.get();
+            
+            for(DocumentSnapshot document: querySnap.get().getDocuments()) {
+                tableModel.addRow(new Object[]{
+                    document.getString("title"),
+                    document.getString("description"),
+                    document.getString("participants"),
+                    document.getString("chairperson"),
+                    document.getString("email")
+                });
+            }
+        } catch(InterruptedException | ExecutionException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        
+        table.setModel(tableModel);
     }
 }
