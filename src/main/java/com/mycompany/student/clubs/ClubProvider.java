@@ -39,4 +39,27 @@ public class ClubProvider {
         
         return false;
     }
+        
+    public static boolean updateClub
+        (
+            String collection ,
+            String document,
+            Map<String, Object> data
+        ) {
+        
+        db = FirestoreClient.getFirestore();
+        
+        try {
+            DocumentReference docRef = 
+                    db.collection(collection)
+                      .document(document);
+            ApiFuture<WriteResult> result = docRef.update(data);
+            System.out.println("Club updated successfully");
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        
+        return false;
+    }
 }

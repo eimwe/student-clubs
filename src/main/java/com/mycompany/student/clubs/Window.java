@@ -57,6 +57,11 @@ public class Window extends javax.swing.JFrame {
         });
 
         upd_jButton.setText("Update");
+        upd_jButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upd_jButtonActionPerformed(evt);
+            }
+        });
 
         del_jButton.setText("Delete");
 
@@ -189,6 +194,10 @@ public class Window extends javax.swing.JFrame {
         saveEntry();
     }//GEN-LAST:event_save_jButtonActionPerformed
 
+    private void upd_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upd_jButtonActionPerformed
+        updateEntry();
+    }//GEN-LAST:event_upd_jButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -256,6 +265,23 @@ public class Window extends javax.swing.JFrame {
             datae.put("email", email_jTextField.getText());
             ClubProvider.saveClub("Club", String.valueOf(id), datae);
             JOptionPane.showMessageDialog(null, "Club saved successfully");
+            clearForm();
+        } catch(HeadlessException e) {
+            System.err.println("Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Failed to save club");
+        }
+    }
+    
+    private void updateEntry() {
+        try {
+            Map<String, Object> datae = new HashMap<>();
+            datae.put("chairperson", chair_jTextField.getText());
+            datae.put("title", title_jTextField.getText());
+            datae.put("description", desc_jTextField.getText());
+            datae.put("participants", count_jTextField.getText());
+            datae.put("email", email_jTextField.getText());
+            ClubProvider.updateClub("Club", "14750", datae);
+            JOptionPane.showMessageDialog(null, "Club updated successfully");
             clearForm();
         } catch(HeadlessException e) {
             System.err.println("Error: " + e.getMessage());
