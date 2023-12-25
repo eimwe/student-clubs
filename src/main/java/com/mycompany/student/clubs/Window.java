@@ -19,6 +19,7 @@ public class Window extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         ClubProvider.loadClubTable(clubs_jTable);
+        id_jTextField.setEnabled(false);
     }
 
     /**
@@ -86,6 +87,11 @@ public class Window extends javax.swing.JFrame {
 
             }
         ));
+        clubs_jTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clubs_jTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(clubs_jTable);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -220,6 +226,16 @@ public class Window extends javax.swing.JFrame {
     private void del_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_del_jButtonActionPerformed
         deleteEntry();
     }//GEN-LAST:event_del_jButtonActionPerformed
+
+    private void clubs_jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clubs_jTableMouseClicked
+        int selection = clubs_jTable.getSelectedRow();
+        id_jTextField.setText(clubs_jTable.getValueAt(selection, 0) + "");
+        title_jTextField.setText(clubs_jTable.getValueAt(selection, 1) + "");
+        desc_jTextField.setText(clubs_jTable.getValueAt(selection, 2) + "");
+        count_jTextField.setText(clubs_jTable.getValueAt(selection, 3) + "");
+        chair_jTextField.setText(clubs_jTable.getValueAt(selection, 4) + "");
+        email_jTextField.setText(clubs_jTable.getValueAt(selection, 5) + "");
+    }//GEN-LAST:event_clubs_jTableMouseClicked
 
     /**
      * @param args the command line arguments
