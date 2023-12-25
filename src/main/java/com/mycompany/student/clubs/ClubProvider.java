@@ -93,6 +93,7 @@ public class ClubProvider {
         
     public static void loadClubTable(JTable table) {
         DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("ID");
         tableModel.addColumn("Title");
         tableModel.addColumn("Description");
         tableModel.addColumn("Participants");
@@ -105,6 +106,7 @@ public class ClubProvider {
             
             for(DocumentSnapshot document: querySnap.get().getDocuments()) {
                 tableModel.addRow(new Object[]{
+                    document.getId(),
                     document.getString("title"),
                     document.getString("description"),
                     document.getString("participants"),
