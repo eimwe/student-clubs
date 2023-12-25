@@ -75,6 +75,11 @@ public class Window extends javax.swing.JFrame {
         });
 
         clear_jButton.setText("Clear");
+        clear_jButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clear_jButtonActionPerformed(evt);
+            }
+        });
 
         clubs_jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -236,6 +241,10 @@ public class Window extends javax.swing.JFrame {
         chair_jTextField.setText(clubs_jTable.getValueAt(selection, 4) + "");
         email_jTextField.setText(clubs_jTable.getValueAt(selection, 5) + "");
     }//GEN-LAST:event_clubs_jTableMouseClicked
+
+    private void clear_jButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clear_jButtonActionPerformed
+        clearForm();
+    }//GEN-LAST:event_clear_jButtonActionPerformed
 
     /**
      * @param args the command line arguments
