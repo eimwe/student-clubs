@@ -13,7 +13,7 @@ import javax.swing.table.TableRowSorter;
  * @author eimwe
  */
 public class Window extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Window
      */
@@ -367,44 +367,78 @@ public class Window extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void saveEntry() {
-        int id = (int) (Math.random() * 100000);
+        String chairperson = chair_jTextField.getText().trim();
+        String title = title_jTextField.getText().trim();
+        String description = desc_jTextField.getText().trim();
+        String participants = count_jTextField.getText().trim();
+        String email = email_jTextField.getText().trim();
         
-        try {
-            Map<String, Object> datae = new HashMap<>();
-            datae.put("chairperson", chair_jTextField.getText());
-            datae.put("title", title_jTextField.getText());
-            datae.put("description", desc_jTextField.getText());
-            datae.put("participants", count_jTextField.getText());
-            datae.put("email", email_jTextField.getText());
-            ClubProvider.saveClub("Club", String.valueOf(id), datae);
-            JOptionPane.showMessageDialog(null, "Club saved successfully");
-            clearForm();
-        } catch(HeadlessException e) {
-            System.err.println("Error: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Failed to save club");
-        } finally {
-            ClubProvider.loadClubTable(clubs_jTable);
+        if (
+                chairperson.isEmpty()   ||
+                title.isEmpty()         ||
+                description.isEmpty()   ||
+                participants.isEmpty()  ||
+                email.isEmpty()
+            ) {
+            JOptionPane.showMessageDialog(null, "Please fill in all the fields.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int id = (int) (Math.random() * 100000);
+
+            try {
+                Map<String, Object> datae = new HashMap<>();
+                datae.put("chairperson", chairperson);
+                datae.put("title", title);
+                datae.put("description", description);
+                datae.put("participants", participants);
+                datae.put("email", email);
+                ClubProvider.saveClub("Club", String.valueOf(id), datae);
+                JOptionPane.showMessageDialog(null, "Club saved successfully");
+                clearForm();
+            } catch (HeadlessException e) {
+                System.err.println("Error: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Failed to save club");
+            } finally {
+                ClubProvider.loadClubTable(clubs_jTable);
+            }
         }
     }
     
     private void updateEntry() {
         String docId = id_jTextField.getText();
         
-        try {
-            Map<String, Object> datae = new HashMap<>();
-            datae.put("chairperson", chair_jTextField.getText());
-            datae.put("title", title_jTextField.getText());
-            datae.put("description", desc_jTextField.getText());
-            datae.put("participants", count_jTextField.getText());
-            datae.put("email", email_jTextField.getText());
-            ClubProvider.updateClub("Club", docId, datae);
-            JOptionPane.showMessageDialog(null, "Club updated successfully");
-            clearForm();
-        } catch(HeadlessException e) {
-            System.err.println("Error: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Failed to update club");
-        } finally {
-            ClubProvider.loadClubTable(clubs_jTable);
+        String chairperson = chair_jTextField.getText().trim();
+        String title = title_jTextField.getText().trim();
+        String description = desc_jTextField.getText().trim();
+        String participants = count_jTextField.getText().trim();
+        String email = email_jTextField.getText().trim();
+        
+        if (
+                chairperson.isEmpty()   ||
+                title.isEmpty()         ||
+                description.isEmpty()   ||
+                participants.isEmpty()  ||
+                email.isEmpty()
+            ) {
+            JOptionPane.showMessageDialog(null, "Please fill in all the fields.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int id = (int) (Math.random() * 100000);
+
+            try {
+                Map<String, Object> datae = new HashMap<>();
+                datae.put("chairperson", chairperson);
+                datae.put("title", title);
+                datae.put("description", description);
+                datae.put("participants", participants);
+                datae.put("email", email);
+                ClubProvider.updateClub("Club", docId, datae);
+                JOptionPane.showMessageDialog(null, "Club updated successfully");
+                clearForm();
+            } catch(HeadlessException e) {
+                System.err.println("Error: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Failed to update club");
+            } finally {
+                ClubProvider.loadClubTable(clubs_jTable);
+            }
         }
     }
     
