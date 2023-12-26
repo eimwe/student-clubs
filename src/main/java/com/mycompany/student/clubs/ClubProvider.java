@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -93,6 +94,7 @@ public class ClubProvider {
         
     public static void loadClubTable(JTable table) {
         DefaultTableModel tableModel = new DefaultTableModel();
+        TableRowSorter tableSorter = new TableRowSorter(tableModel);
         tableModel.addColumn("ID");
         tableModel.addColumn("Title");
         tableModel.addColumn("Description");
@@ -119,5 +121,6 @@ public class ClubProvider {
         }
         
         table.setModel(tableModel);
+        table.setRowSorter(tableSorter);
     }
 }
