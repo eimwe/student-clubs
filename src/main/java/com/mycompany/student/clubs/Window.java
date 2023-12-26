@@ -58,6 +58,7 @@ public class Window extends javax.swing.JFrame {
         xlsExport_jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Student Clubs App");
 
         save_jButton.setText("Save");
         save_jButton.addActionListener(new java.awt.event.ActionListener() {
